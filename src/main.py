@@ -1,8 +1,7 @@
-import csv
+from extract import extractCsv
 
-csvFile  = open("data.csv", "r")
-reader = csv.reader(csvFile)
-for row in reader:
-    if row[len(row)-1] != "normal.":
-        print("Error: " + row[len(row)-1])
-csvFile.close()
+samples = extractCsv("data.csv")
+print(str(len(samples)) + " connection records extracted")
+print("First sample:")
+for i in samples[0].items():
+    print(i)
