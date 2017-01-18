@@ -1,4 +1,4 @@
-from extract import extractCsv, attackTypes
+from extract import extractCsv, attackTypes, fields
 from sklearn import tree
 import pydotplus
 
@@ -54,6 +54,6 @@ classifier = classifier.fit(X, Y)
 
 ''' --- Visualisation --- '''
 
-dotData = tree.export_graphviz(classifier, out_file=None)
-graph = pydotplus.graph_from_dot_data(dot_data)
+dotData = tree.export_graphviz(classifier, out_file=None, class_names=attackTypes, feature_names=fields)
+graph = pydotplus.graph_from_dot_data(dotData)
 graph.write_pdf("attacks.pdf")
