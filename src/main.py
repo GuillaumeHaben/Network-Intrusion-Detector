@@ -11,6 +11,10 @@ print(str(len(samples)) + " connection records extracted")
 X = [] # Contains the training samples
 Y = [] # Contains their classes
 
+protocole=[] #contain all the protocole type
+service=[]   #contain all the services
+flag=[]		#contain all the flags
+
 ''' TODO
 
 Index of the following parameters:
@@ -25,7 +29,20 @@ for j in samples:
     line = []
     for i in j.items():
         if i[0] != "attack_type":
-            line.append(i[1])
+        	if i[0]=="protocol_type":
+        		if i[1] not in protocole:
+        			protocole.append(i[1])
+        		line.append(protocole.index(i[1]))
+        	elif i[0]=="service":
+        		if i[1] not in service:
+        			service.append(i[1])
+        		line.append(service.index(i[1]))
+        	elif i[0]=="flag":
+        		if i[1] not in flag:
+        			flag.append(i[1])
+        		line.append(flag.index(i[1]))
+        	else :
+        		line.append(i[1])
         else:
             Y.append(attackTypes.index(i[1]))
     X.append(line)
@@ -40,4 +57,3 @@ classifier = classifier.fit(X, Y)
 dotData = tree.export_graphviz(classifier, out_file=None)
 graph = pydotplus.graph_from_dot_data(dot_data)
 graph.write_pdf("attacks.pdf")
-
